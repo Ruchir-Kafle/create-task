@@ -1,1 +1,6 @@
 @import "tailwindcss";
+
+.default-border {
+  border: var(--border-1) var(--border-solid) var(--border-black);
+  border-radius: var(--rounded-3xl);
+}
