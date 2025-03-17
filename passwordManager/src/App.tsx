@@ -1,6 +1,6 @@
-import Sidebar from "./Sidebar";
-import PasswordBody from "./PasswordBody";
-import PopUp from "./PopUp";
+import Sidebar from "./components/Sidebar";
+import PasswordBody from "./components/PasswordBody";
+import PopUp from "./components/PopUp";
 
 function App() {
   return (

@@ -1,11 +1,14 @@
 import Tab from "./Tab";
+import Title from "./Title";
+import Section from "./Section";
 
 function Sidebar() {
     return (
         <div className="col-span-1 p-4 bg-gray-400">
-            <div className="w-full h-full grid gap-4 auto-rows-[10%] p-4 default-border">
+            <Section className="w-full h-full">
+                <Title>Websites</Title>
                 <Tab></Tab>
-            </div>
+            </Section>
         </div>
     )
 }
