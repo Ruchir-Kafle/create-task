@@ -3,6 +3,7 @@ interface Props {
 }
 
 function Title({children}: Props) {
+
     return (
         <div className="row-span-1 row-start-1 row-end-1 custom-grid">
             <h1 className="col-start-2 text-3xl text-center border-b-2 p-1">{children}</h1>

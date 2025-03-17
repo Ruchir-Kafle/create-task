@@ -1,8 +1,9 @@
-import { useState } from "react";
+interface Props {
+    close: boolean;
+    setClose: (value: boolean) => React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-function PopUp() {
-    const [close, setClose] = useState(false);
-
+function PopUp({close, setClose}: Props) {
     return (
         <div className={"w-screen h-screen absolute top-0 left-0" + (close ? " hidden" : "")}>
 
