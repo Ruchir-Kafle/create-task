@@ -5,13 +5,13 @@ import PasswordBody from "./components/PasswordBody";
 import PopUp from "./components/PopUp";
 
 function App() {
-  const [close, setClose] = useState(false);
+  const [closed, setClosed] = useState(true);
 
   return (
     <>
-      <Sidebar></Sidebar>
-      <PasswordBody></PasswordBody>
-      <PopUp></PopUp>
+      <Sidebar setClosed={setClosed}></Sidebar>
+      <PasswordBody setClosed={setClosed}></PasswordBody>
+      <PopUp closed={closed} setClosed={setClosed}></PopUp>
     </>
   )
 }

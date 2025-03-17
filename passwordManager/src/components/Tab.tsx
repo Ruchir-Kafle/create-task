@@ -1,7 +1,11 @@
-function Tab() {
+interface Props {
+    setClosed: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function Tab({setClosed}: Props) {
     return (
         <div className="flex w-full justify-center">
-            <button className="w-[95%] h-full default-border rounded-3xl"></button>
+            <button onClick={() => setClosed(false)} className="w-[95%] h-full default-border rounded-3xl"></button>
         </div>
     )
 }

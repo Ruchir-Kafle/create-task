@@ -2,11 +2,15 @@ import Section from "./Section";
 import Tab from "./Tab";
 import Title from "./Title";
 
-function PasswordBody() {
+interface Props {
+    setClosed: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function PasswordBody({setClosed}: Props) {
     return (
         <Section className="col-span-2 m-4">
-            <Title>Accounts & Passwords</Title>
-            <Tab></Tab>
+            <Title setClosed={() => setClosed(false)}>Accounts & Passwords</Title>
+            <Tab setClosed={setClosed}></Tab>
         </Section>
     )
 }
