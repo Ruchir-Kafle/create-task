@@ -8,6 +8,12 @@ function App() {
   const [closed, setClosed] = useState(true);
   const [type, setType] = useState("");
 
+  fetch("user_info.json").then(response => console.log(response))
+
+  fetch("user_info.json")
+    .then(response => response.json())
+    .then(value => console.log(value))
+
   return (
     <>
       <Sidebar setClosed={setClosed} setType={setType}></Sidebar>
