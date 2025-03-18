@@ -6,12 +6,13 @@ import PopUp from "./components/PopUp";
 
 function App() {
   const [closed, setClosed] = useState(true);
+  const [type, setType] = useState("");
 
   return (
     <>
-      <Sidebar setClosed={setClosed}></Sidebar>
-      <PasswordBody setClosed={setClosed}></PasswordBody>
-      <PopUp closed={closed} setClosed={setClosed}></PopUp>
+      <Sidebar setClosed={setClosed} setType={setType}></Sidebar>
+      <PasswordBody setClosed={setClosed} setType={setType}></PasswordBody>
+      <PopUp closed={closed} setClosed={setClosed} type={type}></PopUp>
     </>
   )
 }
