@@ -18,7 +18,7 @@ function PopUp({closed, setClosed, type}: Props) {
                 <button className="col-start-11 row-start-1 w-[62.5px] h-[62.5px] bg-red-400 text-gray-700 text-3xl default-border rounded-3xl" onClick={() => setClosed(true)}>X</button>
                 <h1 className="col-start-4 col-end-9 flex justify-center items-center border-b-2 text-3xl">{type != "" ? type : "Default"}</h1>
                 
-                <form action="" className="row-start-3 row-end-11 col-start-2 col-end-11 flex flex-col items-center gap-6">
+                <form className="row-start-3 row-end-11 col-start-2 col-end-11 flex flex-col items-center gap-6">
                     <Input inputCount={"first"}>{placeholder}</Input>
                     <Input inputCount={"second"}>{placeholder}</Input>
                     <Input inputCount={"third"}>{placeholder}</Input>

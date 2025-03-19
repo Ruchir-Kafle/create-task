@@ -1,0 +1,20 @@
+[
+    {
+      "title": "website1",
+      "accounts": [
+        {
+          "name": "super",
+          "password": "duper"
+        }
+      ]
+    },
+    {
+      "title": "website2",
+      "accounts": [
+        {
+          "name": "euper",
+          "password": "auper"
+        }
+      ]
+    }
+]

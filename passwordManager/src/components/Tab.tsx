@@ -1,21 +1,29 @@
+import { useCallback } from "react";
+
 interface Props {
-    setClosed: React.Dispatch<React.SetStateAction<boolean>>;
+    setClosed?: React.Dispatch<React.SetStateAction<boolean>>;
     setType?: React.Dispatch<React.SetStateAction<string>>;
+    setSelectedTab?: React.Dispatch<React.SetStateAction<string>>;
+    selectedTab?: string;
+    tabData: object | string;
 }
 
-function openMenu(setClosed: React.Dispatch<React.SetStateAction<boolean>>, setType: React.Dispatch<React.SetStateAction<string>> | undefined) {
-    if (setType) {
-        setClosed(false);
-        setType("Account Creation");
-    } else {
-        console.log("get data")
-    }
-}
+function Tab({setClosed, setType, setSelectedTab, selectedTab, tabData}: Props) {
 
-function Tab({setClosed, setType}: Props) {
+    const openMenu = useCallback(() => {
+        if (setType && setClosed) {
+            setClosed(false);
+            setType("Account Creation");
+        } else {
+            if (setSelectedTab && typeof tabData == "string") {
+                setSelectedTab(tabData);
+            }
+        }
+    }, [setClosed, setType])
+
     return (
         <div className="flex w-full justify-center">
-            <button onClick={() => openMenu(setClosed, setType)} className="w-[95%] h-full default-border rounded-3xl"></button>
+            <button onClick={() => openMenu()} className={"w-[95%] h-full default-border rounded-3xl" + (tabData == selectedTab ? " bg-blue-300" : "")}></button>
         </div>
     )
 }
