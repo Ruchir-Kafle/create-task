@@ -57,7 +57,7 @@ function App() {
 
   return (
     <>
-      <Sidebar setClosed={setClosed} setType={setType} setSelectedTab={setSelectedTab} websites={websites}></Sidebar>
+      <Sidebar setClosed={setClosed} setType={setType} setSelectedTab={setSelectedTab} selectedTab={selectedTab} websites={websites}></Sidebar>
       <PasswordBody setClosed={setClosed} setType={setType} accounts={accounts} selectedTab={selectedTab}></PasswordBody>
       <PopUp closed={closed} setClosed={setClosed} type={type}></PopUp>
     </>

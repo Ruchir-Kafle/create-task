@@ -17,6 +17,7 @@ function Tab({setClosed, setType, setSelectedTab, selectedTab, tabData}: Props) 
         } else {
             if (setSelectedTab && typeof tabData == "string") {
                 setSelectedTab(tabData);
+                console.log(tabData, selectedTab)
             }
         }
     }, [setClosed, setType])

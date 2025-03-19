@@ -7,15 +7,16 @@ interface Props {
     setClosed: React.Dispatch<React.SetStateAction<boolean>>;
     setType: React.Dispatch<React.SetStateAction<string>>;
     setSelectedTab: React.Dispatch<React.SetStateAction<string>>;
+    selectedTab: string;
     websites: Array<string>;
 }
 
-function Sidebar({setClosed, setType, setSelectedTab, websites}: Props) {
+function Sidebar({setClosed, setType, setSelectedTab, selectedTab, websites}: Props) {
 
     const createTabs = () => {
         let temp: Array<ReactNode> = [];
         for (let website of websites) {
-            temp.push(<Tab setSelectedTab={setSelectedTab} tabData={website}></Tab>);
+            temp.push(<Tab selectedTab={selectedTab} setSelectedTab={setSelectedTab} tabData={website}></Tab>);
         }
         return temp;
     }
