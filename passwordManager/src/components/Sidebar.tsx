@@ -2,7 +2,6 @@ import Tab from "./Tab";
 import Title from "./Title";
 import Section from "./Section";
 import { ReactNode } from "react";
-import { ReactNode } from "react";
 
 interface Props {
     setClosed: React.Dispatch<React.SetStateAction<boolean>>;
@@ -26,7 +25,6 @@ function Sidebar({setClosed, setType, setSelectedTab, selectedTab, websites}: Pr
         <div className="col-span-1 p-4 bg-gray-400">
             <Section className="w-full h-full">
                 <Title setClosed={setClosed} setType={setType}>Websites</Title>
-                {...createTabs()}
                 {...createTabs()}
             </Section>
         </div>
