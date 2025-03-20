@@ -1,3 +1,4 @@
+import { Account } from "../App";
 import Section from "./Section";
 import Tab from "./Tab";
 import Title from "./Title";
@@ -5,18 +6,23 @@ import Title from "./Title";
 interface Props {
     setClosed: React.Dispatch<React.SetStateAction<boolean>>;
     setType: React.Dispatch<React.SetStateAction<string>>;
-    selectedTab: string;
-    accounts: Array<object>;
+    selectedWebsite: string;
+    currentAccounts: Account[] | null;
 }
 
-function PasswordBody({setClosed, setType, selectedTab, accounts}: Props) {
-
+function PasswordBody({setClosed, setType, selectedWebsite, currentAccounts}: Props) {
     const createTabs = () => {
         let websites = [];
-        for (let account of accounts) {
-            websites.push(<Tab selectedTab={selectedTab} tabData={account}></Tab>);
+        if (currentAccounts) {
+            for (let account of currentAccounts) {
+                websites.push(<Tab onClick={openMenu} selectedWebsite={selectedWebsite} tabData={account.name}></Tab>);
+            }
         }
         return websites;
+    }
+
+    const openMenu = () => {
+
     }
 
     return (

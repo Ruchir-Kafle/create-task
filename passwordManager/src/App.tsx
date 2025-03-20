@@ -4,12 +4,12 @@ import Sidebar from "./components/Sidebar";
 import PasswordBody from "./components/PasswordBody";
 import PopUp from "./components/PopUp";
 
-type Website = {
+export type Website = {
   title: string;
   accounts: Account[];
 }
 
-type Account = {
+export type Account = {
   name: string;
   password: string;
 }
@@ -18,9 +18,9 @@ function App() {
   const [closed, setClosed] = useState(true);
   const [type, setType] = useState("");
   const [data, setData] = useState<Website[]>([]);
-  const [selectedTab, setSelectedTab] = useState<string>("")
-  const [websites, setWebsites] = useState<Array<string>>([])
-  const [accounts, setAccounts] = useState<Array<object>>([])
+  const [selectedWebsite, setSelectedWebsite] = useState<string>("")
+  const [websites, setWebsites] = useState<string[]>([])
+  const [currentAccounts, setCurrentAccounts] = useState<Account[] | null>([])
   
   useEffect(() => {
     const fetchData = async () => {
@@ -37,28 +37,28 @@ function App() {
       setWebsites(temp);
     }
   
-    const getAccounts = () => {
-      let temp = [];
-      if (selectedTab) {
-        for (let account of data) {
-          if (account["title"] == selectedTab) {
-            temp.push(account["accounts"]);
+    const getCurrentAccounts = () => {
+      if (selectedWebsite) {
+        for (let website of data) {
+          if (website["title"] == selectedWebsite) {
+            setCurrentAccounts(website["accounts"]);
+            break;
           }
-        }
+        }  
+      } else {
+        setCurrentAccounts(null);
       }
-      setAccounts(temp);
     }
 
     fetchData();
     getWebsites();
-    getAccounts();
-  }, [closed, selectedTab])
-
+    getCurrentAccounts();
+  }, [closed, selectedWebsite])
 
   return (
     <>
-      <Sidebar setClosed={setClosed} setType={setType} setSelectedTab={setSelectedTab} selectedTab={selectedTab} websites={websites}></Sidebar>
-      <PasswordBody setClosed={setClosed} setType={setType} accounts={accounts} selectedTab={selectedTab}></PasswordBody>
+      <Sidebar setClosed={setClosed} setType={setType} setSelectedWebsite={setSelectedWebsite} selectedWebsite={selectedWebsite} websites={websites}></Sidebar>
+      <PasswordBody setClosed={setClosed} setType={setType} currentAccounts={currentAccounts} selectedWebsite={selectedWebsite}></PasswordBody>
       <PopUp closed={closed} setClosed={setClosed} type={type}></PopUp>
     </>
   )

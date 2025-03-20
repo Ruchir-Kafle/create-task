@@ -5,6 +5,10 @@
         {
           "name": "super",
           "password": "duper"
+        },
+        {
+          "name": "a",
+          "password": "a"
         }
       ]
     },
