@@ -4,14 +4,14 @@ import Section from "./Section";
 import { ReactNode, useCallback } from "react";
 
 interface Props {
-    setClosed: React.Dispatch<React.SetStateAction<boolean>>;
+    setCreationModalClosed: React.Dispatch<React.SetStateAction<boolean>>;
     setType: React.Dispatch<React.SetStateAction<string>>;
     setSelectedWebsite: React.Dispatch<React.SetStateAction<string>>;
     selectedWebsite: string;
     websites: Array<string>;
 }
 
-function Sidebar({setClosed, setType, setSelectedWebsite, selectedWebsite, websites}: Props) {
+function Sidebar({setCreationModalClosed, setType, setSelectedWebsite, selectedWebsite, websites}: Props) {
 
     const createTabs = () => {
         let temp: Array<ReactNode> = [];
@@ -21,14 +21,16 @@ function Sidebar({setClosed, setType, setSelectedWebsite, selectedWebsite, websi
         return temp;
     }
 
-    const openMenu = useCallback((website: string) => {
-        setSelectedWebsite(website);
+    const openMenu = useCallback((website: string | boolean) => {
+        if (typeof website == "string") {
+            setSelectedWebsite(website);
+        }
     }, [setSelectedWebsite])
 
     return (
         <div className="col-span-1 p-4 bg-gray-400">
             <Section className="w-full h-full">
-                <Title setClosed={setClosed} setType={setType}>Websites</Title>
+                <Title setCreationModalClosed={setCreationModalClosed} setType={setType}>Websites</Title>
                 {...createTabs()}
             </Section>
         </div>

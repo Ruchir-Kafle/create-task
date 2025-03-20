@@ -1,16 +1,18 @@
+import { useCallback } from "react";
 import { Account } from "../App";
 import Section from "./Section";
 import Tab from "./Tab";
 import Title from "./Title";
 
 interface Props {
-    setClosed: React.Dispatch<React.SetStateAction<boolean>>;
+    setCreationModalClosed: React.Dispatch<React.SetStateAction<boolean>>;
+    setEditModalClosed: React.Dispatch<React.SetStateAction<boolean>>;
     setType: React.Dispatch<React.SetStateAction<string>>;
     selectedWebsite: string;
     currentAccounts: Account[] | null;
 }
 
-function PasswordBody({setClosed, setType, selectedWebsite, currentAccounts}: Props) {
+function PasswordBody({setCreationModalClosed, setEditModalClosed, setType, selectedWebsite, currentAccounts}: Props) {
     const createTabs = () => {
         let websites = [];
         if (currentAccounts) {
@@ -21,13 +23,13 @@ function PasswordBody({setClosed, setType, selectedWebsite, currentAccounts}: Pr
         return websites;
     }
 
-    const openMenu = () => {
-
-    }
+    const openMenu = useCallback() => {
+        setEditModalClosed
+    };
 
     return (
         <Section className="col-span-2 m-4">
-            <Title setClosed={() => setClosed(false)} setType={setType}>Accounts & Passwords</Title>
+            <Title setCreationModalClosed={() => setCreationModalClosed(false)} setType={setType}>Accounts & Passwords</Title>
             {...createTabs()}
         </Section>
     )

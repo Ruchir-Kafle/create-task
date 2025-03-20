@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 
 import Sidebar from "./components/Sidebar";
 import PasswordBody from "./components/PasswordBody";
-import PopUp from "./components/PopUp";
+import CreationModal from "./components/CreationModal";
+import EditModal from "./components/EditModal";
 
 export type Website = {
   title: string;
@@ -15,7 +16,8 @@ export type Account = {
 }
 
 function App() {
-  const [closed, setClosed] = useState(true);
+  const [creationModalClosed, setCreationModalClosed] = useState(true);
+  const [editModalClosed, setEditModalClosed] = useState(true);
   const [type, setType] = useState("");
   const [data, setData] = useState<Website[]>([]);
   const [selectedWebsite, setSelectedWebsite] = useState<string>("")
@@ -53,13 +55,14 @@ function App() {
     fetchData();
     getWebsites();
     getCurrentAccounts();
-  }, [closed, selectedWebsite])
+  }, [creationModalClosed, selectedWebsite])
 
   return (
     <>
-      <Sidebar setClosed={setClosed} setType={setType} setSelectedWebsite={setSelectedWebsite} selectedWebsite={selectedWebsite} websites={websites}></Sidebar>
-      <PasswordBody setClosed={setClosed} setType={setType} currentAccounts={currentAccounts} selectedWebsite={selectedWebsite}></PasswordBody>
-      <PopUp closed={closed} setClosed={setClosed} type={type}></PopUp>
+      <Sidebar setCreationModalClosed={setCreationModalClosed} setType={setType} setSelectedWebsite={setSelectedWebsite} selectedWebsite={selectedWebsite} websites={websites}></Sidebar>
+      <PasswordBody setEditModalClosed={setEditModalClosed} setCreationModalClosed={setCreationModalClosed} setType={setType} currentAccounts={currentAccounts} selectedWebsite={selectedWebsite}></PasswordBody>
+      <CreationModal creationModalClosed={creationModalClosed} setCreationModalClosed={setCreationModalClosed} type={type}></CreationModal>
+      <EditModal editModalClosed={editModalClosed} setEditModalClosed={setEditModalClosed}></EditModal>
     </>
   )
 }
