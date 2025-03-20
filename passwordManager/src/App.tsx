@@ -23,6 +23,7 @@ function App() {
   const [selectedWebsite, setSelectedWebsite] = useState<string>("")
   const [websites, setWebsites] = useState<string[]>([])
   const [currentAccounts, setCurrentAccounts] = useState<Account[] | null>([])
+  const [selectedAccount, setSelectedAccount] = useState<string | null>(null)
   
   useEffect(() => {
     const fetchData = async () => {
@@ -60,9 +61,9 @@ function App() {
   return (
     <>
       <Sidebar setCreationModalClosed={setCreationModalClosed} setType={setType} setSelectedWebsite={setSelectedWebsite} selectedWebsite={selectedWebsite} websites={websites}></Sidebar>
-      <PasswordBody setEditModalClosed={setEditModalClosed} setCreationModalClosed={setCreationModalClosed} setType={setType} currentAccounts={currentAccounts} selectedWebsite={selectedWebsite}></PasswordBody>
+      <PasswordBody setSelectedAccount={setSelectedAccount} setEditModalClosed={setEditModalClosed} setCreationModalClosed={setCreationModalClosed} setType={setType} currentAccounts={currentAccounts} selectedWebsite={selectedWebsite}></PasswordBody>
       <CreationModal creationModalClosed={creationModalClosed} setCreationModalClosed={setCreationModalClosed} type={type}></CreationModal>
-      <EditModal editModalClosed={editModalClosed} setEditModalClosed={setEditModalClosed}></EditModal>
+      <EditModal editModalClosed={editModalClosed} setEditModalClosed={setEditModalClosed} setSelectedAccount={setSelectedAccount} selectedAccount={selectedAccount}></EditModal>
     </>
   )
 }

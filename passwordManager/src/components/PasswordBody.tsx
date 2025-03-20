@@ -7,12 +7,13 @@ import Title from "./Title";
 interface Props {
     setCreationModalClosed: React.Dispatch<React.SetStateAction<boolean>>;
     setEditModalClosed: React.Dispatch<React.SetStateAction<boolean>>;
+    setSelectedAccount: React.Dispatch<React.SetStateAction<string | null>>;
     setType: React.Dispatch<React.SetStateAction<string>>;
     selectedWebsite: string;
     currentAccounts: Account[] | null;
 }
 
-function PasswordBody({setCreationModalClosed, setEditModalClosed, setType, selectedWebsite, currentAccounts}: Props) {
+function PasswordBody({setCreationModalClosed, setSelectedAccount, setEditModalClosed, setType, selectedWebsite, currentAccounts}: Props) {
     const createTabs = () => {
         let websites = [];
         if (currentAccounts) {
@@ -23,9 +24,10 @@ function PasswordBody({setCreationModalClosed, setEditModalClosed, setType, sele
         return websites;
     }
 
-    const openMenu = useCallback() => {
-        setEditModalClosed
-    };
+    const openMenu = useCallback((website: string) => {
+        setEditModalClosed(false);
+        setSelectedAccount(website);
+    }, [setEditModalClosed]);
 
     return (
         <Section className="col-span-2 m-4">
