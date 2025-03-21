@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Input from "./Input";
 
 interface Props {
@@ -7,7 +8,11 @@ interface Props {
 }
 
 function CreationModal({creationModalClosed, setCreationModalClosed, type}: Props) {
-    const placeholder = (type == "Website Creation" ? "Input the website:" : (type == "Account Creation" ? "Input your account name" : "Default:"))
+    const kind = (type == "Website Creation" ? "website" : (type == "Account Creation" ? "account" : "Default:"))
+    const [websiteName, setWebsiteName] = useState();
+    const [websiteURL, setWebsiteURL] = useState();
+    const [accountName, setAccountName] = useState();
+    const [accountPassword, setAccountPassword] = useState();
 
     return (
         <div className={"w-screen h-screen absolute top-0 left-0" + (creationModalClosed ? " hidden" : "")}>
@@ -19,9 +24,8 @@ function CreationModal({creationModalClosed, setCreationModalClosed, type}: Prop
                 <h1 className="col-start-4 col-end-9 flex justify-center items-center border-b-2 text-3xl">{type != "" ? type : "Default"}</h1>
                 
                 <form className="row-start-3 row-end-11 col-start-2 col-end-11 flex flex-col items-center gap-6">
-                    <Input inputCount={"first"}>{placeholder}</Input>
-                    <Input inputCount={"second"}>{placeholder}</Input>
-                    <Input inputCount={"third"}>{placeholder}</Input>
+                    <Input inputCount={"first"}>{"Input the " + kind + " name:"}</Input>
+                    <Input inputCount={"second"}>{kind == "website" ? "Input the website URL: " : "Input the account password: "}</Input>
                     <input type="submit" value="Create" className="default-border rounded-3xl p-4 px-10" />
                 </form>
             </div>

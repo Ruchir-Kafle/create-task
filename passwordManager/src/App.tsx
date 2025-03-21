@@ -27,9 +27,10 @@ function App() {
   
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch("/user_info.json");
-      const jsonData = await response.json();
-      setData(jsonData);
+      const userData = localStorage.getItem("userData");
+      if (userData) {
+        setData(JSON.parse(userData));
+      }
     }
     
     const getWebsites = () => {
@@ -56,14 +57,14 @@ function App() {
     fetchData();
     getWebsites();
     getCurrentAccounts();
-  }, [creationModalClosed, selectedWebsite])
+  }, [creationModalClosed, selectedWebsite, editModalClosed])
 
   return (
     <>
       <Sidebar setCreationModalClosed={setCreationModalClosed} setType={setType} setSelectedWebsite={setSelectedWebsite} selectedWebsite={selectedWebsite} websites={websites}></Sidebar>
       <PasswordBody setSelectedAccount={setSelectedAccount} setEditModalClosed={setEditModalClosed} setCreationModalClosed={setCreationModalClosed} setType={setType} currentAccounts={currentAccounts} selectedWebsite={selectedWebsite}></PasswordBody>
       <CreationModal creationModalClosed={creationModalClosed} setCreationModalClosed={setCreationModalClosed} type={type}></CreationModal>
-      <EditModal editModalClosed={editModalClosed} setEditModalClosed={setEditModalClosed} setSelectedAccount={setSelectedAccount} selectedAccount={selectedAccount}></EditModal>
+      <EditModal selectedWebsite={selectedWebsite} currentAccounts={currentAccounts} editModalClosed={editModalClosed} setEditModalClosed={setEditModalClosed} setSelectedAccount={setSelectedAccount} selectedAccount={selectedAccount}></EditModal>
     </>
   )
 }
