@@ -17,6 +17,7 @@ export type Account = {
 }
 
 function App() {
+  const [rerender, setRerender] = useState(1);
   const [creationModalClosed, setCreationModalClosed] = useState(true);
   const [editModalClosed, setEditModalClosed] = useState(true);
   const [type, setType] = useState("");
@@ -58,7 +59,11 @@ function App() {
     fetchData();
     getWebsites();
     getCurrentAccounts();
-  }, [creationModalClosed, selectedWebsite, editModalClosed])
+  }, [creationModalClosed, selectedWebsite, editModalClosed, rerender])
+
+  useEffect(() => {
+    setRerender(rerender + 1);
+  }, []);
 
   return (
     <>
