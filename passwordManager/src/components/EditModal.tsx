@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Account, Website } from "../App";
 import Input from "./Input";
 
@@ -13,8 +13,8 @@ interface Props {
 
 function EditModal({setEditModalClosed, setSelectedAccount, selectedWebsite, currentAccounts, selectedAccount, editModalClosed}: Props) {
     const [editMode, setEditMode] = useState(false)
-    const [passwordRef, setPasswordRef] = useState<React.RefObject<null>>(useRef(null))
-    const [accountNameRef, setAccountNameRef] = useState<React.RefObject<null>>(useRef(null))
+    const [newPassword, setNewPassword] = useState("")
+    const [newAccountName, setNewAccountName] = useState("")
 
     const getInfo = () => {
         if (currentAccounts) {
@@ -41,12 +41,10 @@ function EditModal({setEditModalClosed, setSelectedAccount, selectedWebsite, cur
                 if (website["title"] == selectedWebsite) {
                     for (let account of website["accounts"]) {
                         if (account["name"] == selectedAccount) {
-                            if (passwordRef.current && accountNameRef.current) {
-                                account["name"] = accountNameRef.current.value;
-                                account["password"] = passwordRef.current.value;
-                                localStorage.setItem("userData", JSON.stringify(userData));
-                                break;
-                            }
+                            account["name"] = newAccountName;
+                            account["password"] = newPassword;
+                            localStorage.setItem("userData", JSON.stringify(userData));
+                            break;
                         }
                     }
                 }
@@ -71,11 +69,11 @@ function EditModal({setEditModalClosed, setSelectedAccount, selectedWebsite, cur
                         <div className="flex flex-col gap-4">
                             <div className="flex">
                                 <h1 className="text-2xl">{"New Account Name: "}</h1>
-                                <Input setRef={setAccountNameRef} inputCount="first"></Input>
+                                <Input onChange={setNewAccountName} inputCount="first"></Input>
                             </div>
                             <div className="flex">
                                 <h1 className="text-2xl">{"New Password: "}</h1>
-                                <Input setRef={setPasswordRef} inputCount="second"></Input>
+                                <Input onChange={setNewPassword} inputCount="second"></Input>
                             </div>
                         </div> 
                         <button onClick={finishEdit} className="default-border rounded-3xl p-4 px-10">Submit</button>

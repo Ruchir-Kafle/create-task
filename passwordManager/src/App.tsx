@@ -7,6 +7,7 @@ import EditModal from "./components/EditModal";
 
 export type Website = {
   title: string;
+  URL: string;
   accounts: Account[];
 }
 
@@ -63,7 +64,7 @@ function App() {
     <>
       <Sidebar setCreationModalClosed={setCreationModalClosed} setType={setType} setSelectedWebsite={setSelectedWebsite} selectedWebsite={selectedWebsite} websites={websites}></Sidebar>
       <PasswordBody setSelectedAccount={setSelectedAccount} setEditModalClosed={setEditModalClosed} setCreationModalClosed={setCreationModalClosed} setType={setType} currentAccounts={currentAccounts} selectedWebsite={selectedWebsite}></PasswordBody>
-      <CreationModal creationModalClosed={creationModalClosed} setCreationModalClosed={setCreationModalClosed} type={type}></CreationModal>
+      <CreationModal selectedWebsite={selectedWebsite} creationModalClosed={creationModalClosed} setCreationModalClosed={setCreationModalClosed} type={type}></CreationModal>
       <EditModal selectedWebsite={selectedWebsite} currentAccounts={currentAccounts} editModalClosed={editModalClosed} setEditModalClosed={setEditModalClosed} setSelectedAccount={setSelectedAccount} selectedAccount={selectedAccount}></EditModal>
     </>
   )
