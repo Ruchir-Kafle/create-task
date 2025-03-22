@@ -32,7 +32,7 @@ function EditModal({setEditModalClosed, setSelectedAccount, selectedWebsite, cur
         setEditMode(false);
     }
 
-    const finishEdit = async () => {
+    const finishEdit = () => {
         let jsonData = localStorage.getItem("userData");
         
         if (jsonData) {

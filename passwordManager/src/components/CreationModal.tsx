@@ -16,11 +16,7 @@ function CreationModal({creationModalClosed, setCreationModalClosed, type, selec
     const [accountName, setAccountName] = useState("");
     const [accountPassword, setAccountPassword] = useState("");
 
-    const exit = () => {
-        setCreationModalClosed(true);
-    }
-
-    const postWebsite = async () => {
+    const postWebsite = () => {
         let jsonData = localStorage.getItem("userData");
         if (jsonData) {
             let userData: Website[] = JSON.parse(jsonData);
@@ -30,10 +26,10 @@ function CreationModal({creationModalClosed, setCreationModalClosed, type, selec
             let userData = [{"title": websiteName, "URL": websiteURL, "accounts": []}];
             localStorage.setItem("userData", JSON.stringify(userData));
         }
-        exit();
+        setCreationModalClosed(true);
     }
 
-    const postAccount = async () => {
+    const postAccount = () => {
         let jsonData = localStorage.getItem("userData");
         if (jsonData) {
             let userData: Website[] = JSON.parse(jsonData);
@@ -44,7 +40,7 @@ function CreationModal({creationModalClosed, setCreationModalClosed, type, selec
                 }
             }
         }
-        exit();
+        setCreationModalClosed(true);
     }
 
     return (

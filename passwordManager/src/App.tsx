@@ -17,7 +17,7 @@ export type Account = {
 }
 
 function App() {
-  const [rerender, setRerender] = useState(1);
+  const [rerender, setRerender] = useState(0);
   const [creationModalClosed, setCreationModalClosed] = useState(true);
   const [editModalClosed, setEditModalClosed] = useState(true);
   const [type, setType] = useState("");
@@ -29,9 +29,9 @@ function App() {
   
   useEffect(() => {
     const fetchData = async () => {
-      const userData = localStorage.getItem("userData");
-      if (userData) {
-        setData(JSON.parse(userData));
+      const jsonData = localStorage.getItem("userData");
+      if (jsonData) {
+        setData(JSON.parse(jsonData));
       }
     }
     
@@ -63,6 +63,7 @@ function App() {
 
   useEffect(() => {
     setRerender(rerender + 1);
+    localStorage.setItem("rerender", rerender.toString())
   }, []);
 
   return (
