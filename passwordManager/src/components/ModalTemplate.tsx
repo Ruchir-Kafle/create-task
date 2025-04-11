@@ -12,7 +12,7 @@ function ModalTemplate({setModalClosed, modalClosed, children}: Props) {
 
             <button onClick={() => setModalClosed(true)} className="w-screen h-screen opacity-75 bg-gray-700 modal-background"></button>
 
-            <div className="grid grid-cols-11 grid-rows-11 h-[75%] w-[50%] p-1 absolute top-[12.5%] left-[25%] opacity-100 bg-white default-border rounded-4xl">
+            <div className="grid grid-cols-11 grid-rows-11 h-[75%] w-[40%] p-1 absolute top-[12.5%] left-[30%] opacity-100 bg-white default-border rounded-4xl">
                 {children}
             </div>
         </div>

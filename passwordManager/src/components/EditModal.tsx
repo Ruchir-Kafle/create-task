@@ -28,6 +28,8 @@ function EditModal({setEditModalClosed, setSelectedAccount, selectedWebsite, cur
     }
 
     const exit = () => {
+        setNewAccountName("");
+        setNewPassword("");;
         setEditModalClosed(true); 
         setSelectedAccount(null);
         setEditMode(false);
@@ -67,11 +69,11 @@ function EditModal({setEditModalClosed, setSelectedAccount, selectedWebsite, cur
                         <div className="flex flex-col gap-4">
                             <div className="flex">
                                 <h1 className="text-2xl">{"New Account Name: "}</h1>
-                                <Input onChange={setNewAccountName} inputCount="first"></Input>
+                                <Input onChange={setNewAccountName} text={newAccountName} inputCount="first"></Input>
                             </div>
                             <div className="flex">
                                 <h1 className="text-2xl">{"New Password: "}</h1>
-                                <Input onChange={setNewPassword} inputCount="second"></Input>
+                                <Input onChange={setNewPassword} text={newPassword} inputCount="second"></Input>
                             </div>
                         </div> 
                         <button onClick={finishEdit} className="default-border rounded-3xl p-4 px-10">Submit</button>

@@ -18,6 +18,14 @@ function CreationModal({setCreationModalClosed, creationModalClosed, type, selec
     const [accountPassword, setAccountPassword] = useState("");
     const [errorDisplay, setErrorDisplay] = useState(false);
 
+    const exit = () => {
+        setWebsiteName("");
+        setWebsiteURL("");
+        setAccountName("");
+        setAccountPassword("");
+        setCreationModalClosed(true);
+    }
+
     const postWebsite = () => {
         let jsonData = localStorage.getItem("userData");
         let userData: Website[] = [];
@@ -35,7 +43,7 @@ function CreationModal({setCreationModalClosed, creationModalClosed, type, selec
         if (!websiteAlreadyExists) {
             userData.unshift({"title": websiteName, "URL": websiteURL, "accounts": []});
             localStorage.setItem("userData", JSON.stringify(userData));
-            setCreationModalClosed(true);
+            exit();
         } else {
             setErrorDisplay(true);
         }
@@ -52,17 +60,17 @@ function CreationModal({setCreationModalClosed, creationModalClosed, type, selec
                 }
             }
         }
-        setCreationModalClosed(true);
+        exit();
     }
 
     return (
         <ModalTemplate setModalClosed={setCreationModalClosed} modalClosed={creationModalClosed}>    
-            <button className="col-start-11 row-start-1 w-[62.5px] h-[62.5px] bg-red-400 text-gray-700 text-3xl default-border rounded-3xl" onClick={() => setCreationModalClosed(true)}>X</button>
+            <button className="col-start-11 row-start-1 w-[62.5px] h-[62.5px] bg-red-400 text-gray-700 text-3xl default-border rounded-3xl" onClick={exit}>X</button>
             <h1 className="col-start-4 col-end-9 flex justify-center items-center border-b-2 text-3xl">{type != "" ? type : "Default"}</h1>
             
             <div className="row-start-3 row-end-11 col-start-2 col-end-11 flex flex-col items-center gap-6">
-                <Input onChange={kind == "website" ? setWebsiteName : setAccountName} inputCount={"first"}>{"Input the " + kind + " name:"}</Input>
-                <Input onChange={kind == "website" ? setWebsiteURL : setAccountPassword} inputCount={"second"}>{kind == "website" ? "Input the website URL: " : "Input the account password: "}</Input>
+                <Input onChange={kind == "website" ? setWebsiteName : setAccountName} text={kind == "website" ? websiteName : accountName} inputCount={"first"}>{"Input the " + kind + " name:"}</Input>
+                <Input onChange={kind == "website" ? setWebsiteURL : setAccountPassword} text={kind == "website" ? websiteURL : accountPassword} inputCount={"second"}>{kind == "website" ? "Input the website URL: " : "Input the account password: "}</Input>
                 <button onClick={kind == "website" ? postWebsite : postAccount} className="default-border rounded-3xl p-4 px-10">Create</button>
                 <div className={"py-10 text-2xl text-red-800" + (errorDisplay ? "" : " hidden")}>This website is already in the list!</div>
             </div>
