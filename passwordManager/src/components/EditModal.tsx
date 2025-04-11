@@ -50,13 +50,14 @@ function EditModal({setEditModalClosed, setSelectedAccount, selectedWebsite, cur
                 }
             }
         }
+
         exit();
     }
 
     return (
         <div className={"w-screen h-screen absolute top-0 left-0" + (editModalClosed ? " hidden" : "")}>
 
-            <div className="w-screen h-screen opacity-75 bg-gray-700"></div>
+            <button onClick={exit} className="w-screen h-screen opacity-75 bg-gray-700 modal-background"></button>
 
             <div className="grid grid-cols-11 grid-rows-11 h-[75%] w-[50%] p-1 absolute top-[12.5%] left-[25%] opacity-100 bg-white default-border rounded-4xl">
                 <button className="col-start-11 row-start-1 w-[62.5px] h-[62.5px] bg-red-400 text-gray-700 text-3xl default-border rounded-3xl" onClick={exit}>X</button>
