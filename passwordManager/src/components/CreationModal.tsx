@@ -15,18 +15,29 @@ function CreationModal({creationModalClosed, setCreationModalClosed, type, selec
     const [websiteURL, setWebsiteURL] = useState("");
     const [accountName, setAccountName] = useState("");
     const [accountPassword, setAccountPassword] = useState("");
+    const [errorDisplay, setErrorDisplay] = useState(false);
 
     const postWebsite = () => {
         let jsonData = localStorage.getItem("userData");
+        let userData: Website[] = [];
+        let websiteAlreadyExists: boolean = false;
         if (jsonData) {
-            let userData: Website[] = JSON.parse(jsonData);
+            userData = JSON.parse(jsonData);
+        }
+
+        for (let website of userData) {
+            if (website["title"] == websiteName) {
+                websiteAlreadyExists = true
+            } 
+        }
+        
+        if (!websiteAlreadyExists) {
             userData.unshift({"title": websiteName, "URL": websiteURL, "accounts": []});
             localStorage.setItem("userData", JSON.stringify(userData));
+            setCreationModalClosed(true);
         } else {
-            let userData = [{"title": websiteName, "URL": websiteURL, "accounts": []}];
-            localStorage.setItem("userData", JSON.stringify(userData));
+            setErrorDisplay(true);
         }
-        setCreationModalClosed(true);
     }
 
     const postAccount = () => {
@@ -56,6 +67,7 @@ function CreationModal({creationModalClosed, setCreationModalClosed, type, selec
                     <Input onChange={kind == "website" ? setWebsiteName : setAccountName} inputCount={"first"}>{"Input the " + kind + " name:"}</Input>
                     <Input onChange={kind == "website" ? setWebsiteURL : setAccountPassword} inputCount={"second"}>{kind == "website" ? "Input the website URL: " : "Input the account password: "}</Input>
                     <button onClick={kind == "website" ? postWebsite : postAccount} className="default-border rounded-3xl p-4 px-10">Create</button>
+                    <div className={"py-10 text-2xl text-red-800" + (errorDisplay ? "" : " hidden")}>This website is already in the list!</div>
                 </div>
             </div>
         </div>

@@ -16,7 +16,7 @@ function Sidebar({setCreationModalClosed, setType, setSelectedWebsite, selectedW
     const createTabs = () => {
         let temp: Array<ReactNode> = [];
         for (let website of websites) {
-            temp.push(<Tab onClick={openTabAccounts} selectedWebsite={selectedWebsite} tabData={website}></Tab>);
+            temp.push(<Tab onClick={openTabAccounts} selectedWebsite={selectedWebsite} tabData={website} isWebsite></Tab>);
         }
         return temp;
     }
