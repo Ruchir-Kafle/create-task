@@ -16,12 +16,13 @@ function EditModal({setEditModalClosed, setSelectedAccount, selectedWebsite, cur
     const [editMode, setEditMode] = useState(false)
     const [newPassword, setNewPassword] = useState("")
     const [newAccountName, setNewAccountName] = useState("")
+    const [errorMessage, setErrorMessage] = useState("");
 
     const getInfo = () => {
         if (currentAccounts) {
             for (let account of currentAccounts) {
-                if (account.name == selectedAccount) {
-                    return account.password;
+                if (account["name"] == selectedAccount) {
+                    return account["password"];
                 }
             }
         }
@@ -33,28 +34,41 @@ function EditModal({setEditModalClosed, setSelectedAccount, selectedWebsite, cur
         setEditModalClosed(true); 
         setSelectedAccount(null);
         setEditMode(false);
+        setErrorMessage("");
     }
 
     const finishEdit = () => {
-        let jsonData = localStorage.getItem("userData");
-        
-        if (jsonData) {
-            let userData: Website[] = JSON.parse(jsonData);
-            for (let website of userData) {
-                if (website["title"] == selectedWebsite) {
-                    for (let account of website["accounts"]) {
-                        if (account["name"] == selectedAccount) {
-                            account["name"] = newAccountName;
-                            account["password"] = newPassword;
-                            localStorage.setItem("userData", JSON.stringify(userData));
-                            break;
+        if (newPassword && newAccountName) {
+            let jsonData = localStorage.getItem("userData");
+            if (jsonData) {
+                let userData: Website[] = JSON.parse(jsonData);
+                for (let website of userData) {
+                    if (website["title"] == selectedWebsite) {
+                        for (let account of website["accounts"]) {
+                            if (account["name"] == selectedAccount) {
+                                let count = 0;
+                                for (let account2 of website["accounts"]) {
+                                    if (account2["name"] == newAccountName) {
+                                        count++;
+                                    }
+                                }
+                                if (count == 0) {
+                                    account["name"] = newAccountName;
+                                    account["password"] = newPassword;
+                                    localStorage.setItem("userData", JSON.stringify(userData));
+                                    exit();
+                                    break;
+                                } else {
+                                    setErrorMessage("duplicate");
+                                }
+                            }
                         }
                     }
                 }
             }
+        } else {
+            setErrorMessage("null");
         }
-
-        exit();
     }
 
     return (
@@ -77,6 +91,7 @@ function EditModal({setEditModalClosed, setSelectedAccount, selectedWebsite, cur
                             </div>
                         </div> 
                         <button onClick={finishEdit} className="default-border rounded-3xl p-4 px-10">Submit</button>
+                    <div className={"py-10 text-2xl text-red-800" + (errorMessage ? "" : " hidden")}>{errorMessage == "duplicate" ? "This website is already in the list!" : "You need to fill out all fields!"}</div>
                     </>
                     : 
                     <>

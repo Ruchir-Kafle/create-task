@@ -16,7 +16,7 @@ function CreationModal({setCreationModalClosed, creationModalClosed, type, selec
     const [websiteURL, setWebsiteURL] = useState("");
     const [accountName, setAccountName] = useState("");
     const [accountPassword, setAccountPassword] = useState("");
-    const [errorDisplay, setErrorDisplay] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
     const exit = () => {
         setWebsiteName("");
@@ -24,43 +24,52 @@ function CreationModal({setCreationModalClosed, creationModalClosed, type, selec
         setAccountName("");
         setAccountPassword("");
         setCreationModalClosed(true);
+        setErrorMessage("");
     }
 
     const postWebsite = () => {
-        let jsonData = localStorage.getItem("userData");
-        let userData: Website[] = [];
-        let websiteAlreadyExists: boolean = false;
-        if (jsonData) {
-            userData = JSON.parse(jsonData);
-        }
-
-        for (let website of userData) {
-            if (website["title"] == websiteName) {
-                websiteAlreadyExists = true
-            } 
-        }
-        
-        if (!websiteAlreadyExists) {
-            userData.unshift({"title": websiteName, "URL": websiteURL, "accounts": []});
-            localStorage.setItem("userData", JSON.stringify(userData));
-            exit();
+        if (websiteName && websiteURL) {
+            let jsonData = localStorage.getItem("userData");
+            let userData: Website[] = [];
+            let websiteAlreadyExists: boolean = false;
+            if (jsonData) {
+                userData = JSON.parse(jsonData);
+            }
+    
+            for (let website of userData) {
+                if (website["title"] == websiteName) {
+                    websiteAlreadyExists = true
+                } 
+            }
+            
+            if (!websiteAlreadyExists) {
+                userData.unshift({"title": websiteName, "URL": websiteURL, "accounts": []});
+                localStorage.setItem("userData", JSON.stringify(userData));
+                exit();
+            } else {
+                setErrorMessage("duplicate");
+            }
         } else {
-            setErrorDisplay(true);
+            setErrorMessage("null");
         }
     }
 
     const postAccount = () => {
-        let jsonData = localStorage.getItem("userData");
-        if (jsonData) {
-            let userData: Website[] = JSON.parse(jsonData);
-            for (let website of userData) {
-                if (website["title"] == selectedWebsite) {
-                    website["accounts"].unshift({"name": accountName, "password": accountPassword})
-                    localStorage.setItem("userData", JSON.stringify(userData));
+        if (accountName && accountPassword) {
+            let jsonData = localStorage.getItem("userData");
+            if (jsonData) {
+                let userData: Website[] = JSON.parse(jsonData);
+                for (let website of userData) {
+                    if (website["title"] == selectedWebsite) {
+                        website["accounts"].unshift({"name": accountName, "password": accountPassword})
+                        localStorage.setItem("userData", JSON.stringify(userData));
+                    }
                 }
             }
+            exit();
+        } else {
+            setErrorMessage("null");
         }
-        exit();
     }
 
     return (
@@ -72,7 +81,7 @@ function CreationModal({setCreationModalClosed, creationModalClosed, type, selec
                 <Input onChange={kind == "website" ? setWebsiteName : setAccountName} text={kind == "website" ? websiteName : accountName} inputCount={"first"}>{"Input the " + kind + " name:"}</Input>
                 <Input onChange={kind == "website" ? setWebsiteURL : setAccountPassword} text={kind == "website" ? websiteURL : accountPassword} inputCount={"second"}>{kind == "website" ? "Input the website URL: " : "Input the account password: "}</Input>
                 <button onClick={kind == "website" ? postWebsite : postAccount} className="default-border rounded-3xl p-4 px-10">Create</button>
-                <div className={"py-10 text-2xl text-red-800" + (errorDisplay ? "" : " hidden")}>This website is already in the list!</div>
+                <div className={"py-10 text-2xl text-red-800" + (errorMessage ? "" : " hidden")}>{errorMessage == "duplicate" ? "This website is already in the list!" : "You need to fill out all fields!"}</div>
             </div>
         </ModalTemplate>
     )
